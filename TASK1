@@ -1,0 +1,147 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
+namespace BekkiModul
+{
+    class SMatrix
+    {
+        public int m, n;
+        public List<List<int>> matrix;
+
+        public SMatrix()
+        {
+            this.matrix = new List<List<int>>();
+
+            this.n = 0;
+            this.m = 0;
+        }
+
+        public SMatrix(SMatrix Matrix)
+        {
+            this.matrix = Matrix.matrix;
+            this.m = Matrix.m;
+        }
+
+        public SMatrix(int m, int n, List<List<int>> matrix)
+        {
+            if (m >= 0)
+                this.m = m;
+
+            if (n >= 0)
+                this.n = n;
+
+            this.matrix = matrix;
+        }
+
+        public void EnterData()
+        {
+            Console.WriteLine("Enter the number of columns: ");
+            this.n = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter the number of rows: ");
+            this.m = Convert.ToInt32(Console.ReadLine());
+
+            matrix = new List<List<int>>();
+
+            for (int rows = 0; rows < m; rows++)
+            {
+                Console.WriteLine($"Enter {rows + 1} row separated by a space: ");
+                List<int> row = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+                matrix.Add(row);
+            }
+        }
+
+        public void ShowMatrix()
+        {
+            for (int rows = 0; rows < m; rows++)
+            {
+                for (int cols = 0; cols < n; cols++)
+                {
+                    Console.Write($"{matrix[rows][cols]} ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public int GetMaxElement()
+        {
+            int max = matrix[0][0];
+            for (int rows = 0; rows < m; rows++)
+            {
+                for (int cols = 0; cols < n; cols++)
+                {
+                    if (matrix[rows][cols] > max)
+                    {
+                        max = matrix[rows][cols];
+                    }
+                }
+            }
+            return max;
+        }
+
+        public int GetMinElement()
+        {
+            int min = matrix[0][0];
+            for (int rows = 0; rows < m; rows++)
+            {
+                for (int cols = 0; cols < n; cols++)
+                {
+                    if (matrix[rows][cols] < min)
+                    {
+                        min = matrix[rows][cols];
+                    }
+                }
+            }
+            return min;
+        }
+
+        public int GetSum()
+        {
+            int sum = 0;
+            for (int rows = 0; rows < m; rows++)
+            {
+                for (int cols = 0; cols < n; cols++)
+                {
+                    sum += matrix[rows][cols];
+                }
+            }
+            return sum;
+        }
+
+        public static SMatrix operator +(SMatrix matrix1, SMatrix matrix2)
+        {
+            List<List<int>> matrix = new List<List<int>>();
+
+            for (int i = 0; i < matrix1.m; i++)
+            {
+                List<int> row = new List<int>();
+                for (int z = 0; z < matrix1.n; z++)
+                {
+
+                    row.Add(matrix1.matrix[i][z] + matrix2.matrix[i][z]);
+                }
+                matrix.Add(row);
+            }
+            return new SMatrix(matrix.Count, matrix[0].Count, matrix);
+        }
+
+        public static SMatrix operator -(SMatrix matrix1, SMatrix matrix2)
+        {
+            List<List<int>> matrix = new List<List<int>>();
+
+            for (int i = 0; i < matrix1.m; i++)
+            {
+                List<int> row = new List<int>();
+                for (int z = 0; z < matrix1.n; z++)
+                {
+
+                    row.Add(matrix1.matrix[i][z] - matrix2.matrix[i][z]);
+                }
+                matrix.Add(row);
+            }
+            return new SMatrix(matrix.Count, matrix[0].Count, matrix);
+        }
+    }
+}
