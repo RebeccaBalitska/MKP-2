@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BekkiModul
+{
+    class TMatrix : SMatrix
+    {
+        public TMatrix(int m, int n, List<List<int>> matrix) : base(m, n, matrix) {}
+        public TMatrix(SMatrix Matrix) : base(Matrix) {}
+
+        public void pushRandomValues()
+        {
+            Random rnd = new Random();
+            List<List<int>> new_matrix = new List<List<int>>();
+            for (int rows = 0; rows < m; rows++)
+            {
+                List<int> row = new List<int>();
+                for (int cols = 0; cols < n; cols++)
+                {
+                    row.Add(rnd.Next());
+                }
+                new_matrix.Add(row);
+            }
+            matrix = new_matrix;
+        }
+
+        public void getTransparentMatrix()
+        {
+            List<List<int>> trans = new List<List<int>> ();
+            for (int i = 0; i < n; i++)
+            {
+                List<int> row = new List<int>();
+                for (int j = 0; j < m; j++)
+                {
+                    row.Add(matrix[j][i]);
+                }
+                trans.Add(row);
+            }
+            matrix = trans;
+        }
+    }
+}
