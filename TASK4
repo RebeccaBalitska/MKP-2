@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
+namespace BekkiModul
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine($"Enter elements separated by a space: ");
+            List<int> elements = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+
+            int min = elements[0];
+            for (int i = 0; i < elements.Count; i++)
+            {
+                if (elements[i] < min)
+                {
+                    min = elements[i];
+                }
+            }
+
+            int min_count = 0;
+            for (int i = 0; i < elements.Count; i++)
+            {
+                if (min < elements[i])
+                {
+                    min_count++;
+                }
+            }
+
+            Console.WriteLine(min_count);
+        }
+    }
+}
